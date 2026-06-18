@@ -37,3 +37,88 @@
   - Physical
 
 ![7 layers of OSI Model](./OSI.png)
+
+- Command to run wireshark
+
+```bash
+sudo wireshark
+```
+
+---
+
+- To perform nmap in a target machine Enter
+
+```bash
+# It is for TCP
+$ nmap <private_ip>/<public_ip>
+$ nmap -sT 192.168.216.129
+$ nmap 192.168.216.129
+
+# To perform the UDP in the target node
+$ sudo nmap -sU ip
+$ sudo nmap -sU 192.168.216.129
+
+# To scan all the port both UDP and TCP
+$ sudo nmap -sU -sP -p- <ip>
+
+# To a spec port
+$ nmap -st -p111 <ip>
+
+```
+
+---
+
+# TCP Headers
+
+- _SYN (synchronize) - Initiates a connection_
+  - Short for synchronize, Syn is a TCP packet sent to another computer requesting that a connection be established between them. If the SYN is received by the second machine, an SYN/ACK is sent back to the address requested by the SYN
+- _URG (urgent) - Packet to be Processed Immediately_
+  - Urgent (URG) - Data inside a segment with URG = 1 flag is forward to application layer immediately even if there are more data to be given to application layer. It is used to notify the receiver to process the urgent packets before processing all other packets
+- _ACK - Acknowledges received data_
+  - ACK - Short for acknowledgement - refers to a signal that a device sends to indicate that data has been received successfully.
+- _PSH (PUSH) - Transmit Data Immediately_
+  - THE TCP PSH (push) flag is a control flag used to indicate that the receiving device should deliver the data to the receiving application as soon as possible, rather than buffering it.
+- _FIN - Closes a connection_
+  - TCP FIN packets are sent to close a connection. A packet in which both SYN and FIN flags are set should never exist. Therefore these packets might signify an attack on the device and should be blocked
+- _RST - Aborts a connection in response to an error_
+  - In TCP, packets with the "Reset" (RST or R) flag are sent to abort a connection. Probably the most common reason you are seeing this is that an SYN packet is sent to a closed port.
+
+![TCP Headers](./TCPHeaders.png)
+
+---
+
+- **3 Way Handshake**
+  - A three-way handshake is primarily used to create a TCP socket connection to reliable transmit data between devices.
+  - For example, it supports communication between a web browser on the client side and a server every time a user navigates The Internet
+  - As soon as a client requests a connection session with server, a three-way handshake process initiates TCP traffic by following three steps
+
+---
+
+## Step 1 : A connection between server and client is established
+
+- First, a connection between server and client is established, so the target server must have open ports that can accept and initiate new connections. The client node sends a SYN (Synchronize Sequence Number) Data packet over an Ip network to a server on the same or an external network.
+
+- This SYN packet is a random sequence number that the client wants to use for the communication (for example, X). The objective of this packet is to ask/infer if the server is open for new connections
+
+## Step 2: The server receives the syn packet from th client node
+
+- When the server receives the syn packet from the client node, it responds and returns a confirmation receipt - the ACK
+  (Acknowledgement Sequence Number) packet or Syn/ACK packet. This packet includes two sequence numbers.
+- The first one is ACK one, which is set by the server to one more than the sequence number it received from the client (e.g. X+1)
+- The second one is the SYN sent by the server, which is another random sequence number (For example, Y)
+- This sequence indicates that the server correctly acknowledged the client's packet, and that is sending its own to be acknowledged as well
+
+## step 3: Client node Receives the SYN/ACK from the server and responds with an ACK Packet
+
+- The client node receives the SYN/ACK from the server and responds with an ACK packet. Once again, Each side must acknowledge the sequence number received by incrementing it by one.
+- So now it's the turn of the client to acknowledge the server's packet by adding one to the Upon completion of this process, the connection is created and the host and server can communicate
+- All these steps are necessary to verify the serial numbers originated by both sides, guaranteeing the stability of the connection
+
+---
+
+## Network Discover
+
+```bash
+$ sudo netdiscover -i eth0
+$ sudo netdiscover -i docker0
+```
