@@ -49,6 +49,9 @@ sudo wireshark
 - To perform nmap in a target machine Enter
 
 ```bash
+# nmap command
+# nmap [Scan Type(s)] [Options] {target specification}
+
 # It is for TCP
 $ nmap <private_ip>/<public_ip>
 $ nmap -sT 192.168.216.129
@@ -118,7 +121,82 @@ $ nmap -st -p111 <ip>
 
 ## Network Discover
 
+- Host Discovery
+  - Ping Scan
+
 ```bash
-$ sudo netdiscover -i eth0
-$ sudo netdiscover -i docker0
+# Check the command in nmap
+
+$ man nmap
+
+$  nmap -sn <ip> # Find out if the target server is running or not
+
 ```
+
+```bash
+$ sudo netdiscover -i eth0 # Scan the eth0 network
+
+$ sudo netdiscover -i docker0
+
+$ nmap -sn 192.168.0.0/16
+
+$ ip addr # Check the IP address
+
+# To scan a list of Ip address in a file add some ip like 192.168.10.10 192.168.10.50
+$ nmap -sn -iL <file_path>
+
+# To avoid some specific ip address
+$ nmap -sn 192.168.186.1-225 --excludefile /path_file
+```
+
+---
+
+# New
+
+- To Perform an attack first we need to know that if the server is live or not to check the server live or not
+
+```bash
+ping <ip>
+nmap -sn <ip>
+```
+
+- ARP Scan of Firewall
+
+```bash
+$ sudo nmap -sn <firewall_device_IP> -PR
+```
+
+- **Port States**
+  - _Open_ : Open indicates that a service is listening for connections on this port
+  - _Closed_ : Closed indicates that the probs were received, But it was concluded there was no service running on this port
+  - _Filtered_ : Filtered indicates that there were no signs that the probes were received and the state could not be established. It also indicates that the probes are being dropped by some kind filtering
+  - _Unfiltered_ : Unfiltered indicates that the probes were received but the state could not be established.
+  - _Open/Filtered_ : This indicates that the port was filtered or open but the state could not be established.
+  - _Close/Filtered_ : This indicates that the port was filtered or closed but the state could not be established.
+
+- To Scan a specific port in the host/machine
+  - nmap -p 80 <ip>
+  - nmap -p 80,81,82 <ip>
+  - nmap -p 1-1000 <ip>
+  - nmap <ip> Get all the Ip address
+  - nmap -p- <ip> To check all the Ip in the server (0-65534)
+  - nmap -sT <ip> To check all the TCP Ip address
+  - sudo nmap -sU <ip> To check all the UDP Ip address
+  - nmap 192.168.10.10,20,30,40,50.
+  - nmap <192.168.10.\*>
+  - nmap -iL file_url
+  - sudo nmap -sV --version-intensity 9 -p <ip>
+  - sudo nmap -O <ip> To Check the OS
+  - **Aggressive Scan**
+    - sudo nmap -A <ip>
+
+- If the firewall active on that server/host/machine
+  - asdas
+
+### Passive O.S Fingerprinting and Banner Grabbing
+
+- **Analyzing TTL value and window size**
+  - _OS-TTL-TCP window size_
+  - Linux - 64 - 5840
+  - Windows - 128 - 8192
+  - Cisco Router - 255-4128
