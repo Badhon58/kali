@@ -189,7 +189,16 @@ $ sudo nmap -sn <firewall_device_IP> -PR
   - sudo nmap -O <ip> To Check the OS
   - **Aggressive Scan**
     - sudo nmap -A <ip>
-
+  - (-T) : Set of timing template
+    - (0 - paranoid), (1 - sneaky), (2 - polite), (3 - normal), (4 - aggressive), (5 insane)
+    - sudo nmap <ip> -T5
+    - sudo nmap -p 21 <ip> -T5
+    - sudo nmap -p 21 <ip> -T1
+  - **Decoi Scan**
+    - Send multiple tcp form different IP
+      - sudo nmap -sS -D RND:2 <ip>
+      - sudo nmap -sS -D 1.1.1.1 <ip>
+      - sudo nmap -sS -D 1.1.1.1,2.2.2.2,3.3.3.3 <ip>
 - If the firewall active on that server/host/machine
   - asdas
 
@@ -200,3 +209,206 @@ $ sudo nmap -sn <firewall_device_IP> -PR
   - Linux - 64 - 5840
   - Windows - 128 - 8192
   - Cisco Router - 255-4128
+
+---
+
+- **Nmap SYN,ACK,UDP,ARP Scan (Bypass Firewall)**
+  - nmap -sn -PS <ip>
+  - nmap -sn -PA <ip>
+  - nmap -sn -PU <ip>
+  - nmap -sn -PY <ip>
+
+---
+
+# Whitesec Cyber security
+
+- Basic Scan
+  - namp <ip>
+- Scan the TCP and the UDP
+  - nmap -sT <ip>
+  - sudo nmap -sU <ip>
+- Scan all Open Port
+  - sudo nmap -sU -sT -p- <ip>
+- Three way handshake was only be perform on TCP not UDP. Because UDP is fast. And UDP only perform on Streaming.
+- Network Discovery
+  - sudo netdiscover -i eth0
+  - nmap -sn 192.168.0.0/16
+- Scan the Ip that are active or 2 machine are active
+  - nmap -sn <192.168.216.1-244>
+- Avoid the ip
+  - nmap -sn 192.168.216.1-255 --exclude 192.168.186.133
+- List network scan, Add some ip in a .txt file
+  - nmap -sn -iL file.txt
+- With out TCP handshake
+  - nmap -sn -Pn <ip> <ip>
+  - nmap -Pn <ip> <ip>
+- Nmap SYN, ACK, UDP, ARP Scan (Bypass Firewall)
+  - nmap -sn -PS <ip>
+  - nmap -sn -PA <ip>
+  - nmap -sn -PU <ip>
+  - nmap -sn -PY <ip>
+  - sudo nmap -sn -PR 192.168.216.129
+- ICMP Scanning
+
+---
+
+# PRO
+
+## Installation Of NMAP run as sudo
+
+```bash
+sudo apt install libssl-dev autoconf make g++ subversion
+sudo svn co https://svn.nmap.org/nmap/
+# For the complete list of configuration directive
+./configure
+sudo apt update
+sudo apt install --reinstall binutils binutils-common binutils-x86-64-linux-gnu
+
+make clean
+./configure CC=gcc CXX=g++
+make
+sudo pip install setuptools==62.0.0
+```
+
+## Basic Scan
+
+- Verbose OutPut level of nmap
+  - nmap -v <Target_Ip>
+  - nmap -vv <Target_Ip>
+- Scan Your Signal Target
+  - nmap <Target_Ip>
+- Scan Multiple Target
+  - nmap <Target_Ip> <Target_Ip> <Target_Ip>
+- Scan an Entire Subnet(A logical subdivision of a single, larger IP network)
+  - nmap <Target_Ip>/24
+  - nmap 192.168.10.1/24
+- Scan a range of Ip address
+  - nmap 192.168.10.0-100
+- Scan a list of target
+  - cat >> ip.txt
+    192.168.10.1
+    192.168.10.2
+    192.168.10.3
+  - nmap -F -iL ip.txt
+- Exclude targets from a Scan
+  - nmap {Your Target} --exclude {Targets}
+  - nmap 192.168.10.1/24 --exclude 192.168.10.129
+- Exclude targets from a File
+  - nmap {Your Target} --excludefile file.txt
+  - nmap 192.168.10.1/24 --excludefile file.txt
+- Selecting a network interface
+  - nmap -e eth0 <Target_IP>
+- Scan an Ip v6
+  - nmap -6 <target_ip>
+- Display Port State Reason Codes
+  - nmap --reason <Target_IP>
+- Only Display open ports
+  - nmap --open <Target_IP>
+- Trace Packets
+  - nmap --packet-trace <Target_IP>
+
+## Port Scanning
+
+- Perform a Fast Scan
+  - nmap -F <Target_IP>
+- Scan Specific Ports
+  - nmap -p (Port that you want) (Your Target)
+  - nmap -p 21 192.168.10.2
+  - nmap -p {port, port, port} {Your Target}
+  - nmap -p 80,139,50-1000 192.168.10.2
+- Scan specific Port Name
+  - nmap -p msrpc, http, apex-mesh <Target_IP>
+- Scan all port
+  - nmap -p "\*" <Target_IP>
+- Scan some specific port
+  - nmap -sU -sT -p U:53 T:25 <Target_IP>
+- Scan Top Port
+  - nmap --top-ports 10 <Target_IP>
+- Perform a Sequential Port Scan
+  - nmap -r <Target_IP>
+  - nmap -v -r <Target_IP>
+
+## Foundational Scanning
+
+- Don't Ping
+  - nmap -PN <Target_IP>
+- Ping Only Scan
+  - nmap -sP <Target_IP>
+- TCP SYN Ping
+  - nmap -PS <Target_IP>
+- TCP ACK Ping
+  - nmap -PA <Target_IP>
+  - nmap -PA 443 <Target_IP>
+- UDP Ping
+  - nmap -PU <Target_IP>
+  - nmap -PU 80 <Target_IP>
+- SCTP Init Ping
+  - nmap -PY <Target_IP>
+  - nmap -PY 112 <Target_IP>
+- ICMP Echo Ping
+  - nmap -PY <Target_IP>
+  - nmap -PY 222 <Target_IP>
+- ICMP Timestamp Ping
+  - nmap -PP <Target_IP>
+- ICMP Address Mask Ping
+  - nmap -PM <Target_IP>
+- IP Protocol Ping
+  - nmap -PO <Target_IP>
+  - nmap -PO icmp <Target_IP>
+- ARP Ping
+  - nmap -PR <Target_IP/24>
+- Trace Route
+  - nmap --traceroute <Target_IP>
+- Force Reverse DNS Resolution
+  - nmap -R <Target_IP>
+- Disable Reverse DNS Resolution
+  - nmap -n <Target_IP>
+- Alternative DNS LookUp Method
+  - nmap --system-dns <Target_IP>
+- Manual Specific DNS Servers
+  - nmap --dns-servers {server1, server2, server3} {Your Target}
+
+## Advanced Scanning TCP or UDP
+
+- TCP SYN Scan, TCP Syn scan is default scan for privileged Users
+  - nmap -sS <Target_IP>
+- TCP Connect Scan
+  - nmap -sT <Target_IP>
+- UDP Scan
+  - sudo nmap -sU <Target_IP>
+- TCP Null scan
+  - nmap -sN <Target_IP>
+  - nmap -sN --top-ports 10 <Target_IP>
+- TCP FIN Scan
+  - nmap -sF <Target_IP>
+- XMAS Scan
+  - nmap -sX <Target_IP>
+- TCP ACK Scan
+  - nmap -sA <Target_IP>
+- Custom TCP Scan
+  - nmap
+- IP Protocol Scan
+  - nmap -sO <Target_IP>
+- Send Raw Ethernet Packets
+  - nmap --send-eth <Target_IP>
+- Send IP Packets
+  - nmap --send-ip <Target_IP>
+
+## OS & Service Detection
+
+- OS Detection
+  - nmap -O <Target_IP>
+  - nmap -O --osscan-guess <Target_IP>
+  - nmap -V -O <Target_IP>
+- Service Version Detection
+  - nmap -sV <Target_IP>
+  - nmap -sV --version-trace <Target_IP>
+
+## Timing Option
+
+- Timing Parameter
+  - nmap -T4 <Target_IP>
+  - nmap -T4s <Target_IP> (Second)
+  - nmap -T4m <Target_IP> (Minute)
+  - nmap -T4h <Target_IP> (Hours)
+- Minimum & Maximum Number of parallel Operations
