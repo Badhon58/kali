@@ -120,3 +120,149 @@ $ exploit
 - **msfvenom** : A payload generator. It builds payload files or code snippets that will run on a target. Think of it as the payload production tool.
 - **msfconsole** : The main framework interface and operational environment. It loads modules, manages exploits, and acts as the listener or handler that interacts with payloads when they connect back
 - **Simple memory aid** : msfvenom produces the payload. msfconsole runs the framework and manages sessions
+
+- msfvenom is a payload generation tool. Msf console is a listening tool
+
+```bash
+$ man msfvenom
+$ msfvenom -p windows/meterpreterpayload
+
+```
+
+- In New metasploit the new payload generator comes under metasploit payload
+- Meterpreter only work on msfconsole, But shell can be execute on anything
+- Search windows ssh vernable paylaod .
+
+```bash
+$ search platform:windows name:ssh
+$ search platform:windows name:ssh type:exploit
+```
+
+---
+
+### What an exploit is
+
+- An exploit is code or steps that take advantage of a vulnerability is software, hardware, or configuration so you can run arbitrary code or commands on a target. Exploits often target a bug in a service, a flawed input validation, a misconfiguration or a logic error.
+
+### Exploit anatomy
+
+- Target information: which software and version the exploit affects.
+- Vulnerability vector: How the exploit reaches the vulnerable code (network request, file upload, local action)
+- Payload delivery : The exploit delivery a payload after triggering the vulnerability.
+- Reliability and constraints : Exploits may require specific conditions or particular options to work.
+
+---
+
+### What an exploit is
+
+**How to run an exploit in msfconsole**
+
+- Find the exploit
+
+```bash
+$ search type:exploit name:wordpress
+```
+
+- Use It:
+
+```bash
+  $ use <exploit_name>
+```
+
+- Set target options
+
+```bash
+set RHOSTS <ip>
+set RPORT 112
+set PAYLOAD <Payload_URL>
+set LHOST 10.10.10.5
+run
+```
+
+If successful, you get a session and then move to post-exploitation tasks.
+
+---
+
+## Payload
+
+**What a payload is**
+
+- A payload is the code that runs on the target after an exploit succeeds. Payloads determine what control you get and how you interact with the compromised host. Metasploit payloads range from simple command shells to full-featured agents like meterpreter
+
+- **Payload categories and examples**
+  - _Stagers and stages_ : Stagers are small payloads that set up a connection and download a large stage. Example: reverse_tcp stager. Stages are the large agents such as meterpreter.
+  - _Bind shell Payloads_ : The target listens on a port, and you connect to it. This can fail with firewalls
+  - _Reverse shell Payloads_ : The target connects back to you. This often bypasses outbound firewall rules and is common
+  - _Inline payloads_ : Small payloads that execute immediately and do not create persistent sessions.
+  - _Meterpreter_ : A staged, in-memory agent with many built-in commands for file access, process manipulation, network sinffing, pivoting and more
+
+- **Choosing a payload**
+  - Use meterpreter for interactive tests and when you need post-exploitation features.
+  - Use a sample shell for minimal tasks or when MeterPreter is not available
+  - Consider architecture and platform
+  - Consider detection and defensive controls; some payloads are easier for defenders to detect.
+
+```bash
+$ show payload
+$ search platform:android
+```
+
+---
+
+## Anxiliary Modules
+
+![Anxiliary Modules](./auxilarity.png)
+
+---
+
+# NEW
+
+Components of Metasploit Framework
+
+- msfconsole: The primary cmd-line interface
+- Modles: Includes exploits, scanners, payloads, etc
+- Tools: Stand-alone tools for vulnerability research, assissment, or pevetration testing, msfvenom
+
+- Using Metasploit:
+  - Open Metasploit in the terminal using the _msfconsole_ command
+  - Modules are small components built for specific tasks
+
+```bash
+$ apt update && apt upgrade
+```
+
+- RHOSTS : IP address of target system
+- RPORT : Port on the target where the vulnerable application runs.
+- PAYLOAD: Code to run on the target system
+- LHOST <IP> address of the attacking machine.
+- LPORT : Port for the reverse shell to connect back to.
+
+### Additional Components:
+
+- _Encoders_ : Encode exploit and payload to evade antivirus.
+- _Evasion_ : Modules attempting to directly evade antivirus.
+- _Exploits_ : Organized by target system.
+- _NOPs_ : No Operation. used as buffers for consistent payload sizes
+- _Payloads_ : Code to run on the target system, categorized as singles, stagers and stages
+
+- Metasploit Commands:
+
+```bash
+# Launch Metasploit Console
+$ msfconsole
+
+# Search for a module
+$ search [module]
+
+# use a module
+$ use [module]
+
+# Display module options
+$ show options
+
+# Set a value for an option
+$ set [option] [value]
+
+# Execute the selected module
+$ exploit
+```
