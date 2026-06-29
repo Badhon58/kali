@@ -78,3 +78,18 @@ Protocols are sets of rules or standards that define how data is transmitted and
 sudo nmap -sV -sS Domain_Name
 
 ```
+
+## Directory Bruteforcing: Find Hidden Directories
+
+**What is a Directory**
+A directory on a web server is like a folder on your computer. It contains files or other folders
+
+- For example, on a website, /images/ could be a directory containing all the pictures.
+- Directories help organize files so the website knows where to find things.
+
+**What is Directory BruteForcing?**
+Directory bruteforcing is a technique where a bug bounty hunter tries to find hidden or listed directories or files on a web server by guessing or using a list of common folder/file names
+
+- Imagine a building with many doors.
+- Some doors are labeled clearly (linked on the website)
+- Directory bruteforcing is like trying many door names to find hidden rooms inside the building
