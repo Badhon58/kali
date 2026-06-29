@@ -93,3 +93,5 @@ Directory bruteforcing is a technique where a bug bounty hunter tries to find hi
 - Imagine a building with many doors.
 - Some doors are labeled clearly (linked on the website)
 - Directory bruteforcing is like trying many door names to find hidden rooms inside the building
+
+tools: ferobuster
