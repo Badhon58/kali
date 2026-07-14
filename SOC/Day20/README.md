@@ -19,7 +19,7 @@
 
 4. **ATT&CK Structure**
    - _Tactics_ : Adversary's technical goals (the "why")
-     - ::Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Command & Control, Ex-filtration, Impact::
+     - Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Command & Control, Ex-filtration, Impact
    - _Techniques_ : How goals are achieved (the "how")
    - _Sub-Techniques_ : More specific methods
    - _Mitigations_ : Defenses
