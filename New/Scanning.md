@@ -17,3 +17,4 @@ $ Email : legoyi3368@kolsea.com
 $ Activation Code: abc-abc-abc--abc-abc-abc
 $ https://127.0.0.1:8834/#/
 ```
+sudo nmap -sV -p- --script=vulscan/vulscan.nse www.example.com
