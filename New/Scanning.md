@@ -8,6 +8,8 @@ $ curl --request GET \
 $ dpkg -i Nessus-10.12.4-ubuntu1604_amd64.deb
 
 $ /bin/systemctl start nessusd.service
+$ /bin/systemctl status nessusd.service
+
 ```
 
 ```bash
