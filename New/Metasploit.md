@@ -3,7 +3,8 @@
 _Exploit_ : An exploit is the mechanism used to attack a system in a particular way that it was never intended to do .
 _Payload_ : A payload is code that is delivered and executed using a framework, on a target machine or device.
 _Modules_ : Modules within Metasploit are software components that perform chosen attacks on specified targets.
-_Listener_ : A listener within Metasploit waits for incoming connections from targets that have been exploited
+_Listener_ : A listener within Metasploit waits for incoming connections from targets that have been exploited.
+_Auxiliary_ : An auxiliary module in Metasploit is a helper tool used to perform actions like scanning, reconnaissance, and information gathering without executing a payload or popping a shell.
 
 - To run Metasploit
 
@@ -84,3 +85,15 @@ _Done_
 
 ## Attacking Tomcat with Metasploit
 
+```bash
+# Find for Tomcat Services
+$ nmap -sV -p- <Target_Ip>
+$ search tomcat
+$ use auxiliary/scanner/http/tomcat_mgr_login
+$ show options
+
+```
+
+---
+
+## Getting Meterpreter with command Injection
