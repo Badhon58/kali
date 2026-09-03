@@ -38,6 +38,8 @@
     - LHOST : The Local host (Attacker machine) that listens for a reverse connection from the target
 
 12. _Explain the different between staged and non-staged payloads._
-    - _Staged_ payloads send the initial payload which then download and executes a large payload.
-    - _Non staged_ payload contain all code one file, no further connection needed after delivery.
-13. 
+    - _Staged_ payloads send the initial payload which then download and executes a large payload. Smaller initial payload, Downloads seconds-stage shell.
+    - _Non staged_ payload contain all code one file, no further connection needed after delivery. Entire payloads is sent at once; large but avoids seconds connection step.
+
+13. _What is Metasploit?_
+    - Metasploit is an open source penetration testing framework used by security professionals to find exploits, and validate vulnerabilities in systems. it supports tasks like Exploit developments, payload generation, Post-exploitation, and more.
